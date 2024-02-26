@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -24,6 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Keycard from 'react-native-status-keycard';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -31,6 +32,14 @@ type SectionProps = PropsWithChildren<{
 
 function Section({children, title}: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+
+  useEffect(() => {
+    Keycard.nfcIsSupported().then((isSupported: boolean) =>
+      isSupported
+        ? console.log('NFC is supported')
+        : console.log('NFC is not supported'),
+    );
+  }, []);
   return (
     <View style={styles.sectionContainer}>
       <Text

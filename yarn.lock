@@ -5486,6 +5486,10 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+"react-native-status-keycard@git+https://github.com/status-im/react-native-status-keycard.git#refs/tags/v2.5.39":
+  version "2.5.39"
+  resolved "git+https://github.com/status-im/react-native-status-keycard.git#93dd64754e676172310e6ea7187cc49f2dc013c6"
+
 react-native@0.73.4:
   version "0.73.4"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.73.4.tgz#81e07d4e7b6308c4649d5fa24038c0e87b17f2e1"

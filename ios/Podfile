@@ -25,6 +25,9 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+pod "Keycard", git: "https://github.com/status-im/Keycard.swift.git"
+pod 'secp256k1', git: "https://github.com/status-im/secp256k1.swift.git", submodules: true
+
 target 'keyring' do
   config = use_native_modules!
 
