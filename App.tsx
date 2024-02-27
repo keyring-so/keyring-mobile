@@ -24,6 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+// @ts-ignore
 import Keycard from 'react-native-status-keycard';
 
 type SectionProps = PropsWithChildren<{
@@ -33,13 +34,6 @@ type SectionProps = PropsWithChildren<{
 function Section({children, title}: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  useEffect(() => {
-    Keycard.nfcIsSupported().then((isSupported: boolean) =>
-      isSupported
-        ? console.log('NFC is supported')
-        : console.log('NFC is not supported'),
-    );
-  }, []);
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -66,6 +60,15 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const [nfcIsSupported, setNfcIsSupported] = React.useState(false);
+
+  useEffect(() => {
+    Keycard.nfcIsSupported().then((isSupported: boolean) =>
+      isSupported
+        ? setNfcIsSupported(true)
+        : console.log('NFC is not supported'),
+    );
+  }, []);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -98,6 +101,7 @@ function App(): React.JSX.Element {
           <Section title="Learn More">
             Read the docs to discover what to do next:
           </Section>
+          <Text>NFC: {nfcIsSupported.toString()}</Text>
           <LearnMoreLinks />
         </View>
       </ScrollView>
