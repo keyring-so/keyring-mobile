@@ -8,6 +8,8 @@
 import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
+  NativeEventEmitter,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -61,17 +63,44 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [nfcIsSupported, setNfcIsSupported] = React.useState(false);
+  const [log, setLog] = React.useState('');
+  const keycardEmitter = new NativeEventEmitter(Keycard);
 
   useEffect(() => {
-    Keycard.nfcIsSupported().then((isSupported: boolean) =>
-      isSupported
-        ? setNfcIsSupported(true)
-        : console.log('NFC is not supported'),
+    keycardEmitter.addListener('keyCardOnConnected', () => {
+      setLog('keycard connected...');
+      console.log('keycard is connected now..');
+      console.log('keycard init');
+      const pin = '123456';
+      Keycard.init(pin).then(secrets => {
+        console.log(secrets);
+        console.log('stop nfc');
+        Keycard.stopNFC('').then(() => console.log('nfc stopped'));
+      });
+    });
+    keycardEmitter.addListener('keyCardOnDisconnected', () =>
+      setLog('keycard disconnected'),
     );
+    Keycard.nfcIsSupported().then((isSupported: boolean) => {
+      if (isSupported) {
+        setNfcIsSupported(true);
+        console.log('NFC is supported');
+      } else {
+        console.log('NFC is not supported');
+      }
+    });
   }, []);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const getCardInfo = async () => {
+    // Keycard.getApplicationInfo().then(info => console.log(info));
+    console.log('start nfc');
+    Keycard.startNFC('Hold your iPhone near a Keyring card.').then(() => {
+      console.log('keycard started..');
+    });
   };
 
   return (
@@ -102,6 +131,8 @@ function App(): React.JSX.Element {
             Read the docs to discover what to do next:
           </Section>
           <Text>NFC: {nfcIsSupported.toString()}</Text>
+          <Text>Log: {log}</Text>
+          <Button onPress={getCardInfo} title="Get Info" />
           <LearnMoreLinks />
         </View>
       </ScrollView>
