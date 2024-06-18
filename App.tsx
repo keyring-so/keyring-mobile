@@ -28,6 +28,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 // @ts-ignore
 import Keycard from 'react-native-status-keycard';
+import './global.css';
 
 type SectionProps = PropsWithChildren<{
   title: string;
