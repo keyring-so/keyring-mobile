@@ -1063,6 +1063,8 @@ PODS:
     - React-jsi (= 0.73.8)
     - React-logger (= 0.73.8)
     - React-perflogger (= 0.73.8)
+  - RNCAsyncStorage (1.23.1):
+    - React-Core
   - RNReanimated (3.12.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1126,6 +1128,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - secp256k1 (from `https://github.com/status-im/secp256k1.swift.git`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1239,6 +1242,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   secp256k1:
@@ -1310,6 +1315,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 1c40cfe98dcc7b06354d96a1cd8ee10cbc4cc797
   React-utils: 4cc2ba652f5df1c8f0461d4ae9e3ee474c1354ea
   ReactCommon: 1da3fc14d904883c46327b3322325eebf60a720a
+  RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
   RNReanimated: 6aeb85e1e17364c8069f9ee5661615b4a281bd5c
   secp256k1: f61d67e6fdcb85fd727acf1bf35ace6036db540c
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
