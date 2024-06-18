@@ -8,13 +8,11 @@
 import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  Button,
   NativeEventEmitter,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
@@ -28,6 +26,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 // @ts-ignore
 import Keycard from 'react-native-status-keycard';
+import './global.css';
+import {Button} from '@/components/ui/button'
+import {Text} from '@/components/ui/text';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -89,7 +90,7 @@ function App(): React.JSX.Element {
         console.log('NFC is not supported');
       }
     });
-  }, []);
+  });
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -132,7 +133,12 @@ function App(): React.JSX.Element {
           </Section>
           <Text>NFC: {nfcIsSupported.toString()}</Text>
           <Text>Log: {log}</Text>
-          <Button onPress={getCardInfo} title="Get Info" />
+          <Button>
+            <Text>Default</Text>
+          </Button>
+          <Button onPress={getCardInfo}>
+            <Text>Get Info</Text>
+          </Button>
           <LearnMoreLinks />
         </View>
       </ScrollView>

@@ -3,5 +3,9 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
   }
 }
