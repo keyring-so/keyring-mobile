@@ -15,6 +15,8 @@ import Keycard from 'react-native-status-keycard';
 import './global.css';
 import {applyMigrations, DB_NAME} from './lib/database';
 import ConnectPage from './pages/connect';
+import Toast from 'react-native-toast-message';
+import { PortalHost } from '@rn-primitives/portal';
 
 let db;
 
@@ -26,17 +28,17 @@ function App(): React.JSX.Element {
   const keycardEmitter = new NativeEventEmitter(Keycard);
 
   useEffect(() => {
-    keycardEmitter.addListener('keyCardOnConnected', () => {
-      setLog('keycard connected...');
-      console.log('keycard is connected now..');
-      console.log('keycard init');
-      const pin = '123456';
-      Keycard.init(pin).then(secrets => {
-        console.log(secrets);
-        console.log('stop nfc');
-        Keycard.stopNFC('').then(() => console.log('nfc stopped'));
-      });
-    });
+    // keycardEmitter.addListener('keyCardOnConnected', () => {
+    //   setLog('keycard connected...');
+    //   console.log('keycard is connected now..');
+    //   console.log('keycard init');
+    //   const pin = '123456';
+    //   // Keycard.init(pin).then(secrets => {
+    //   //   console.log(secrets);
+    //   //   console.log('stop nfc');
+    //   //   Keycard.stopNFC('').then(() => console.log('nfc stopped'));
+    //   // });
+    // });
     keycardEmitter.addListener('keyCardOnDisconnected', () =>
       setLog('keycard disconnected'),
     );
@@ -79,6 +81,8 @@ function App(): React.JSX.Element {
       </Button> */}
       {/* <Text>{dbVersion}</Text> */}
       <ConnectPage />
+      <Toast />
+      <PortalHost />
     </SafeAreaView>
   );
 }
