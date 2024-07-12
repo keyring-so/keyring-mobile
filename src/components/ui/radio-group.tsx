@@ -2,6 +2,11 @@ import * as React from 'react';
 import { View } from 'react-native';
 import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import { cn } from '@/lib/utils';
+import {cssInterop} from 'nativewind';
+
+cssInterop(RadioGroupPrimitive.Root, {className: 'style'});
+cssInterop(RadioGroupPrimitive.Item, {className: 'style'});
+cssInterop(RadioGroupPrimitive.Indicator, {className: 'style'});
 
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,

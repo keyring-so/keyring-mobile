@@ -1,11 +1,13 @@
-import {ChevronDown} from '@/lib/icons/ChevronDown';
-import {ChevronUp} from '@/lib/icons/ChevronUp';
-import {zodResolver} from '@hookform/resolvers/zod';
-import React, {useEffect, useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {Text, View} from 'react-native';
-import {number, z} from 'zod';
-import {Button} from './ui/button';
+import { Text } from '@/components/ui/text';
+import { ChevronDown } from '@/lib/icons/ChevronDown';
+import { ChevronUp } from '@/lib/icons/ChevronUp';
+import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { View } from 'react-native';
+import Toast from 'react-native-toast-message';
+import { z } from 'zod';
+import { Button } from './ui/button';
 import {
   Dialog,
   DialogContent,
@@ -13,20 +15,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog';
-import {
-  Form,
-  FormField,
-  FormInput,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormRadioGroup,
-} from './ui/form';
-import {Tabs, TabsContent, TabsList, TabsTrigger} from './ui/tabs';
-import {RadioGroup, RadioGroupItem} from './ui/radio-group';
-import {Input} from './ui/input';
-import Toast from 'react-native-toast-message';
-import {Label} from './ui/label';
+import { Form, FormField, FormInput, FormLabel, FormRadioGroup } from './ui/form';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { RadioGroupItem } from './ui/radio-group';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 
 const InitCardSchema = z.object({
   name: z.string().min(2).max(20),
@@ -156,9 +149,9 @@ const InitializeDialog = ({handleClose}: Props) => {
   };
 
   return (
-    <View className="bg-yellow-300">
+    <View className="">
       <Dialog open={true} onOpenChange={handleClose}>
-        <DialogContent className="sm:max-w-[525px]">
+        <DialogContent className="">
           <DialogHeader>
             <DialogTitle>
               The card is empty, do you want to initalize it?
@@ -172,7 +165,7 @@ const InitializeDialog = ({handleClose}: Props) => {
             </DialogDescription>
           </DialogHeader>
           <Tabs value="no-mnemonic" className="" onValueChange={setTab}>
-            <TabsList className="grid h-auto p-1 grid-cols-2 bg-gray-200 rounded-lg">
+            <TabsList className="flex flex-row items-center justify-evenly bg-gray-200 rounded-lg">
               <TabsTrigger className="text-md rounded-lg" value="no-mnemonic">
                 <Text>Create</Text>
               </TabsTrigger>
@@ -260,67 +253,70 @@ const InitializeDialog = ({handleClose}: Props) => {
             </TabsContent>
             <TabsContent value="no-mnemonic">
               <Form {...initForm}>
-                <FormField
-                  control={initForm.control}
-                  name="checksum"
-                  render={({field}) => {
-                    function onPress(value: '4' | '6' | '8') {
-                      return () => {
-                        initForm.setValue('checksum', value);
-                      };
-                    }
+                <View className="flex flex-col gap-4 mt-4">
+                  <FormField
+                    control={initForm.control}
+                    name="checksum"
+                    render={({field}) => {
+                      function onPress(value: '4' | '6' | '8') {
+                        return () => {
+                          initForm.setValue('checksum', value);
+                        };
+                      }
 
-                    return (
-                      <FormRadioGroup
-                        label="Choose the count of secret phrase"
-                        {...field}>
-                        {(['4', '6', '8'] as const).map(value => {
-                          return (
-                            <View
-                              key={value}
-                              className={'flex-row gap-2 items-center'}>
-                              <RadioGroupItem
-                                aria-labelledby={`label-for-${value}`}
-                                value={value}
-                              />
-                              <Label
-                                nativeID={`label-for-${value}`}
-                                className="capitalize"
-                                onPress={onPress(value)}>
-                                {Number(value) * 3}
-                              </Label>
-                            </View>
-                          );
-                        })}
-                      </FormRadioGroup>
-                    );
-                  }}
-                />
-                <FormField
-                  control={initForm.control}
-                  name="pin"
-                  render={({field}) => (
-                    <FormInput
-                      label="Input your PIN"
-                      autoComplete="off"
-                      {...field}
-                    />
-                  )}
-                />
-                <FormField
-                  control={initForm.control}
-                  name="name"
-                  render={({field}) => (
-                    <FormInput
-                      label="Name the card"
-                      autoComplete="off"
-                      {...field}
-                    />
-                  )}
-                />
-                <Button onPress={initForm.handleSubmit(initCard)}>
-                  <Text className="text-green-300">Submit</Text>
-                </Button>
+                      return (
+                        <FormRadioGroup
+                          className="flex flex-row gap-6"
+                          label="Choose the count of secret phrase"
+                          {...field}>
+                          {(['4', '6', '8'] as const).map(value => {
+                            return (
+                              <View
+                                key={value}
+                                className="flex flex-row gap-1 items-center">
+                                <RadioGroupItem
+                                  aria-labelledby={`label-for-${value}`}
+                                  value={value}
+                                />
+                                <Label
+                                  nativeID={`label-for-${value}`}
+                                  className="capitalize"
+                                  onPress={onPress(value)}>
+                                  {Number(value) * 3}
+                                </Label>
+                              </View>
+                            );
+                          })}
+                        </FormRadioGroup>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={initForm.control}
+                    name="pin"
+                    render={({field}) => (
+                      <FormInput
+                        label="Input your PIN"
+                        autoComplete="off"
+                        {...field}
+                      />
+                    )}
+                  />
+                  <FormField
+                    control={initForm.control}
+                    name="name"
+                    render={({field}) => (
+                      <FormInput
+                        label="Name the card"
+                        autoComplete="off"
+                        {...field}
+                      />
+                    )}
+                  />
+                  <Button onPress={initForm.handleSubmit(initCard)}>
+                    <Text className="">Submit</Text>
+                  </Button>
+                </View>
               </Form>
             </TabsContent>
           </Tabs>

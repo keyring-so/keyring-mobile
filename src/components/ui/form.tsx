@@ -433,7 +433,7 @@ const FormRadioGroup = React.forwardRef<
   const { error, formItemNativeID, formDescriptionNativeID, formMessageNativeID } = useFormField();
 
   return (
-    <FormItem className='gap-3'>
+    <FormItem className='gap-2'>
       <View>
         {!!label && <FormLabel nativeID={formItemNativeID}>{label}</FormLabel>}
         {!!description && <FormDescription className='pt-0'>{description}</FormDescription>}

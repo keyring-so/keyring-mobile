@@ -8,7 +8,7 @@ const PairDialog: React.FC = () => {
 
   return (
     <View className=''>
-      <Text className='text-green-300'>Pair dialog</Text>
+      <Text className=''>Pair dialog</Text>
     </View>
   );
 };

@@ -1,14 +1,15 @@
-import {Settings as SettingsIcon} from '@/lib/icons/Settings';
 import InitializeDialog from '@/components/initialize';
 import PairDialog from '@/components/pair';
-import {Button} from '@/components/ui/button';
-import React, {useEffect} from 'react';
-import {NativeEventEmitter, Text, View} from 'react-native';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
+import { Settings as SettingsIcon } from '@/lib/icons/Settings';
+import React, { useState } from 'react';
+import { NativeEventEmitter, View } from 'react-native';
 import Keycard from 'react-native-status-keycard';
 
 const ConnectPage: React.FC = () => {
-  const [cardInitialized, setCardInitialized] = React.useState(false);
-  const [connectDialog, setConnectDialog] = React.useState(false);
+  const [cardInitialized, setCardInitialized] = useState(false);
+  const [connectDialog, setConnectDialog] = useState(false);
   const keycardEmitter = new NativeEventEmitter(Keycard);
 
   const connect = async () => {
@@ -29,7 +30,11 @@ const ConnectPage: React.FC = () => {
       console.log(appInfo);
       setCardInitialized(appInfo['initialized?']);
       setConnectDialog(true);
-      console.log('card initialized: ', appInfo['initialized?'], cardInitialized);
+      console.log(
+        'card initialized: ',
+        appInfo['initialized?'],
+        cardInitialized,
+      );
 
       Keycard.stopNFC('').then(() => console.log('nfc stopped'));
     });
@@ -52,18 +57,20 @@ const ConnectPage: React.FC = () => {
           <Text className="mt-4 font-medium text-primary">Welcome!</Text>
         </View>
         <Button className="" onPress={connect}>
-          <Text className="text-green-300">Connect your Keyring Card</Text>
+          <Text className="">Connect your Keyring Card</Text>
         </Button>
 
         <Button className="" onPress={getInfo}>
-          <Text className="text-green-300">Get Info</Text>
+          <Text className="">Get Info</Text>
         </Button>
       </View>
       <View className="absolute bottom-8 right-8">
         <SettingsIcon onPress={() => console.log('settings')} />
       </View>
-      {connectDialog && cardInitialized === false && (<InitializeDialog handleClose={setConnectDialog} />)}
-      {connectDialog && cardInitialized === true && (<PairDialog />)}
+      {connectDialog && cardInitialized === false && (
+        <InitializeDialog handleClose={setConnectDialog} />
+      )}
+      {connectDialog && cardInitialized === true && <PairDialog />}
     </View>
   );
 };

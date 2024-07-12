@@ -2,6 +2,11 @@ import * as React from 'react';
 import { TextClassContext } from '@/components/ui/text';
 import * as TabsPrimitive from '@rn-primitives/tabs';
 import { cn } from '@/lib/utils';
+import {cssInterop} from 'nativewind';
+
+cssInterop(TabsPrimitive.List, {className: 'style'});
+cssInterop(TabsPrimitive.Content, {className: 'style'});
+cssInterop(TabsPrimitive.Trigger, {className: 'style'});
 
 const Tabs = TabsPrimitive.Root;
 
